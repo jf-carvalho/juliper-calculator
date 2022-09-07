@@ -1,0 +1,48 @@
+version: '3.4'
+
+services:
+
+  juliper.db:
+    image: mysql:5.7.12
+    container_name: juliper-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: juliper
+    ports:
+      - "3310:3306"
+    volumes:
+      - "./.data:/var/lib/mysql:rw"
+    networks:
+      - backend
+
+  juliper.app:
+    container_name: juliper-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "82:80"
+    volumes:
+      - "./:/var/www:rw"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - backend
+
+  juliper.webserver:
+    image: nginx:alpine
+    container_name: juliper-webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www/
+      - ./nginx/:/etc/nginx/conf.d/
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
