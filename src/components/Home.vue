@@ -182,7 +182,8 @@ export default {
     },
     removeOutflow(index){
       if(index != 0){
-        this.outflows.splice(index, 1)
+        this.outflows.splice(index, 1);
+        this.outflows_count--;
       }
     }
   },
