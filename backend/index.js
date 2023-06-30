@@ -1,15 +1,13 @@
-const { MongoClient } = require("mongodb");
+const mongoose = require('mongoose');
 const config = require('config');
 const express = require('express');
 const cors = require('cors');
                              
 const url = "mongodb+srv://jfcarvalho4:" + config.get('database.mongodb_atlas_password') + "@cluster0.pdaeb9w.mongodb.net/?retryWrites=true&w=majority";
 
-const client = new MongoClient(url);
-
 async function run() {
     try {
-        await client.connect();
+        await mongoose.connect(url);
         console.log("Connected correctly to database");
 
         const app = express();
@@ -33,9 +31,6 @@ async function run() {
 
     } catch (err) {
         console.log(err.stack);
-    }
-    finally {
-        await client.close();
     }
 }
 
