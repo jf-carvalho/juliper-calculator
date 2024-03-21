@@ -115,9 +115,14 @@ import Navbar from "@/components/Navbar.vue";
             <div class="text-right">{{ lower_total ? reais(lower_total) : '' }}</div>
           </div>
           <div class="grid grid-cols-4">
-            <div class="col-span-2 text-right">Still remains: </div>
+            <div class="col-span-2 text-right">Dinheiro de bala: </div>
             <div class="text-right">{{ higher_remains ? reais(higher_remains) : '' }}</div>
             <div class="text-right">{{ lower_remains ? reais(lower_remains) : '' }}</div>
+          </div>
+          <div class="grid grid-cols-4">
+            <div class="col-span-2 text-right">Divisão igual: </div>
+            <div class="text-right">{{ higher_remains ? reais((higher_remains+lower_remains)/2) : '' }}</div>
+            <div class="text-right">{{ lower_remains ? reais((higher_remains+lower_remains)/2) : '' }}</div>
           </div>
           <div class="flex justify-end my-12">
             <button class="rounded p-3 bg-gray-700" @click="save()">
